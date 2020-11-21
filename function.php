@@ -29,27 +29,78 @@ function Genera_Calendario($mese = '',$anno = '')
     $mese_prima = date("m",strtotime('-1 month', strtotime($date)));
     $anno_prima = date("Y",strtotime('-1 month', strtotime($date)));
     $tot_giornimese_prima = cal_days_in_month(CAL_GREGORIAN, $mese_prima,$anno_prima);
-?>
-    <inizio class = "calendario-contenitore">
-        <sezione class = "titolo-bar">
-            <div class="titolo-bar_mese">
-                <sezione class="mese-dropdown">
-                </sezione>
-            </div>
-            <div class="titolo-bar_anno">
-                <sezione class="anno-dropdown">
-                </sezione>
-            </div>
-        </sezione> 
 
-    <sezione class="calendario_giorni">
-        <sezione class="calendario_top-bar">
-            <giorno class ="top-bar giorni">Lunedì</giorno>
-            <giorno class ="top-bar giorni">Martedì</giorno>
-            <giorno class ="top-bar giorni">Mercoledì</giorno>
-            <giorno class ="top-bar giorni">Giovedì</giorno>
-            <giorno class ="top-bar giorni">Venerdì</giorno>
-            <giorno class ="top-bar giorni">Sabato</giorno>
-            <giorno class ="top-bar giorni">Domenica</giorno>
-    </sezione>
+   
+    $cont_giorni = 1;
+    $n_eventi = 0;
+
+    for($i = 1; i<=$boxdisplay;$i++)
+    {
+        if(($cb >= $pr_giornomese || $pr_giornomese==1) && $i<=($tot_giornimese_display))
+        {
+            $data_corrente = $data_anno.'-'.$data_mese.'-'.$cont_giorni;
+
+             global $connection;
+            $query = mysqli_query("SELECT Nome FROM impegni WHERE Data_impegno = '".$data_corrente."'");
+            $n_eventi = $query->n_righe;
+        }
 }
+
+function Lista_Mesi($select = '')
+{
+    $op = '';
+    
+    for($i=1;$i<=12;$i++)
+    {
+        if($i<10)
+        {
+            $val = '0'.$i;
+        }else
+        {
+            $val = $i;
+        }
+        if($val==$select)
+        {
+            $select_op = 'select';
+        }else
+        {
+            $seelct_op ='';
+        }
+        
+        $op .='<option value="'.$val.'" '.$select_op.' >'.date("F",mktime(0,0,0,$i+1,0,0)).'</option>';
+    }
+    return $op;
+}
+
+function Lista_Anni($select = '')
+{
+    $op = '';
+    
+    if(!empty($select))
+    {
+        $anno_in = $select;
+    }else
+    {
+        $anno_in = date("Y");
+    }
+    
+    $anno_prec =($anno_in-3);
+    $anno_succ =($anno_in+3);
+    
+    for($i=$anno_prec;$i<=$anno_succ;$i++)
+    {
+        if($i == $select)
+        {
+            $select_op = 'select';
+        }
+        else
+        {
+            $select_op ='';
+        }
+
+        $op .= '<option value="'.$i.'" '.$select_op.' >'.$i.'</option>';
+    }
+    return $op;
+}
+    
+?>
