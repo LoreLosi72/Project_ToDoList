@@ -2,6 +2,19 @@
 
 include_once 'connection.php';
 
+if(isset($_POST['function']) && !empty($_POST['function'])){
+	switch($_POST['function']){
+		case 'Calendario':
+			Calenderio($_POST['anno'],$_POST['mese']);
+			break;
+		case 'Eventi':
+			Eventi($_POST['date']);
+			break;
+		default:
+			break;
+	}
+}
+
 function Genera_Calendario($mese = '',$anno = '')
 {
     $data_anno = ($anno != '')?$anno:date("Y");
@@ -29,6 +42,8 @@ function Genera_Calendario($mese = '',$anno = '')
     $mese_prima = date("m",strtotime('-1 month', strtotime($date)));
     $anno_prima = date("Y",strtotime('-1 month', strtotime($date)));
     $tot_giornimese_prima = cal_days_in_month(CAL_GREGORIAN, $mese_prima,$anno_prima);
+
+ 
 
    
     $cont_giorni = 1;
@@ -102,5 +117,46 @@ function Lista_Anni($select = '')
     }
     return $op;
 }
-    
+
+function Eventi($data ='') 
+{
+    if(!empty($data))
+    {
+        $data = $data;
+    }
+    else
+    {
+        $data = date("Y-m-d");
+    }
+
+    global $nomedb;
+    $query = mysqli_query("SELECT Nome FROM impegni WHERE Data_impegno = '".$data."'"); 
+   
+}
+   
 ?>
+
+    <script>
+		function Calendario(div, anno, mese){
+			$.ajax({
+				type:'POST',
+				url:'functions.php',
+				data:'function=Calendario&anno='+anno+'&mese='+mese,
+				success:function(html){
+					$('#'+div).html(html);
+				}
+			});
+		}
+		
+        function Eventi(date){
+			$.ajax({
+				type:'POST',
+				url:'functions.php',
+				data:'function=Eventi&data='+date,
+				success:function(html){
+					$('#event_list').html(html);
+				}
+			});
+		}
+		
+	</script>
