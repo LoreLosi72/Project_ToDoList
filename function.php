@@ -2,23 +2,10 @@
 
 include_once 'connection.php';
 
-if(isset($_POST['function']) && !empty($_POST['function'])){
-	switch($_POST['function']){
-		case 'Calendario':
-			Calenderio($_POST['anno'],$_POST['mese']);
-			break;
-		case 'Eventi':
-			Eventi($_POST['date']);
-			break;
-		default:
-			break;
-	}
-}
-
-function Genera_Calendario($mese = '',$anno = '')
+function Genera_Calendario()
 {
-    $data_anno = ($anno != '')?$anno:date("Y");
-    $data_mese = ($mese != '')?$mese:date("m");
+    $data_anno = date("Y");
+    $data_mese = date("m");
     $data_calendario = $data_anno.'-'.$data_mese.'-01';
     $pr_giornomese = date("N",strtotime($data_calendario));
     $tot_giornimese = cal_days_in_month(CAL_GREGORIAN, $data_mese, $data_anno);
@@ -39,28 +26,97 @@ function Genera_Calendario($mese = '',$anno = '')
         $boxdisplay = 42;
     }
 
-    $mese_prima = date("m",strtotime('-1 month', strtotime($date)));
-    $anno_prima = date("Y",strtotime('-1 month', strtotime($date)));
+    $mese_prima = date("m",strtotime('-1 mese', strtotime($data_calendario)));
+    $anno_prima = date("Y",strtotime('-1 mese', strtotime($data_calendario)));
     $tot_giornimese_prima = cal_days_in_month(CAL_GREGORIAN, $mese_prima,$anno_prima);
+?>
 
- 
+<main class="calendario">
+		<section class="titolo-bar">
+			<div class="titolo-bar__mese">
+				<select class="mese-dropdown">
+					<?php echo Lista_Mesi($data_mese); ?>
+				</select>
+			</div>
+			<div class="titolo-bar__anno">
+				<select class="anno-dropdown">
+					<?php echo Lista_Anni($data_anno); ?>
+				</select>
+			</div>
+		</section>
+		
+		
+		<section class="calendario__giorni">
+			<section class="calendario__top-bar">
+				<a class="top-bar__giorni">Lun</a>
+				<a class="top-bar__giorni">Mar</a>
+				<a class="top-bar__giorni">Mer</a>
+				<a class="top-bar__giorni">Gio</a>
+				<a class="top-bar__giorni">Ven</a>
+				<a class="top-bar__giorni">Sab</a>
+				<a class="top-bar__giorni">Dom</a>
+			</section>
+			
+                <?php
+                    $cont_giorni = 1;
+                    $n_eventi = 0;
 
-   
-    $cont_giorni = 1;
-    $n_eventi = 0;
+                    echo '<section class="calendario__settimana">';
+                    for($c = 1; $c<=$boxdisplay;$c++)
+                    {
+                        if(($c >= $pr_giornomese || $pr_giornomese==1) && $c<=($tot_giornimese_display))
+                        {
+                            $data_corrente = $data_anno.'-'.$data_mese.'-'.$cont_giorni;
 
-    for($i = 1; i<=$boxdisplay;$i++)
-    {
-        if(($cb >= $pr_giornomese || $pr_giornomese==1) && $i<=($tot_giornimese_display))
-        {
-            $data_corrente = $data_anno.'-'.$data_mese.'-'.$cont_giorni;
+                            global $connection;
+                            $query = $connection->query("SELECT Nome FROM impegni WHERE Data_impegno = '".$data_corrente."'");
+                            $n_eventi = $query->num_rows;
 
-             global $connection;
-            $query = mysqli_query("SELECT Nome FROM impegni WHERE Data_impegno = '".$data_corrente."'");
-            $n_eventi = $query->n_righe;
-        }
+                            if(strtotime($data_corrente) == strtotime(date("Y-m-d"))){
+                                echo '
+                                    <div class="calendario__giorno oggi">
+                                        <a class="calendario__data">'.$cont_giorni.'</a>
+                                        <a class="calendario__task calendario__task--oggi">'.$n_eventi.' Events</a>
+                                    </div>';
+                            }elseif($n_eventi > 0){
+                                echo '
+                                    <div class="calendario__giorno event">
+                                        <a class="calendario__data">'.$cont_giorni.'</a>
+                                        <a class="calendario__task">'.$n_eventi.' Eventi</a>
+                                    </div>
+                                ';
+                            }else{
+                                echo '
+                                    <div class="calendario__giorno no-event">
+                                        <a class="calendario__data">'.$cont_giorni.'</a>
+                                        <a class="calendario__task">'.$n_eventi.' Eventi</a>
+                                    </div>
+                                ';
+                            }
+                            $cont_giorni++;
+                        }else{
+                            if($c < $pr_giornomese){
+                                $giorni_altromese = ((($tot_giornimese-$pr_giornomese)+1)+$c);
+                                $giorni = 'precedenti';
+                            }else{
+                                $giorni_altromese = ($c-$tot_giornimese_display);
+                                $giorni = 'successivi';
+                            }
+                            echo '
+                                <div class="calendario__giorno inattivo">
+                                    <a class="calendario__data">'.$giorni_altromese.'</a>
+                                    <a class="calendario__task">'.$giorni.'</a>
+                                </div>
+                            ';
+                        }
+                        echo (($c%7 == 0) && ($c != $boxdisplay))?'</section><section class="calendario__settimana">':'';
+                }
+                echo '</section>';
+            ?>
+        </section>
+    </main>
+<?php
 }
-
 function Lista_Mesi($select = '')
 {
     $op = '';
@@ -76,7 +132,7 @@ function Lista_Mesi($select = '')
         }
         if($val==$select)
         {
-            $select_op = 'select';
+            $select_op = 'selected';
         }else
         {
             $seelct_op ='';
@@ -106,7 +162,7 @@ function Lista_Anni($select = '')
     {
         if($i == $select)
         {
-            $select_op = 'select';
+            $select_op = 'selected';
         }
         else
         {
@@ -118,45 +174,7 @@ function Lista_Anni($select = '')
     return $op;
 }
 
-function Eventi($data ='') 
-{
-    if(!empty($data))
-    {
-        $data = $data;
-    }
-    else
-    {
-        $data = date("Y-m-d");
-    }
 
-    global $nomedb;
-    $query = mysqli_query("SELECT Nome FROM impegni WHERE Data_impegno = '".$data."'"); 
-   
-}
-   
-?>
 
-    <script>
-		function Calendario(div, anno, mese){
-			$.ajax({
-				type:'POST',
-				url:'functions.php',
-				data:'function=Calendario&anno='+anno+'&mese='+mese,
-				success:function(html){
-					$('#'+div).html(html);
-				}
-			});
-		}
-		
-        function Eventi(date){
-			$.ajax({
-				type:'POST',
-				url:'functions.php',
-				data:'function=Eventi&data='+date,
-				success:function(html){
-					$('#event_list').html(html);
-				}
-			});
-		}
-		
-	</script>
+
+    
