@@ -2,10 +2,20 @@
 
 include_once 'connection.php';
 
-function Genera_Calendario()
+if(isset($_POST['func']) && !empty($_POST['func'])){
+	switch($_POST['func']){
+		case 'Genera_Calendario':
+			Genera_Calendario($_POST['anno'],$_POST['mese']);
+			break;
+		default:
+			break;
+	}
+}
+
+function Genera_Calendario($anno='',$mese='')
 {
-    $data_anno = date("Y");
-    $data_mese = date("m");
+    $data_anno = ($anno !='')?$anno:date("Y");
+    $data_mese = ($mese !='')?$mese:date("m");
     $data_calendario = $data_anno.'-'.$data_mese.'-01';
     $pr_giornomese = date("N",strtotime($data_calendario));
     $tot_giornimese = cal_days_in_month(CAL_GREGORIAN, $data_mese, $data_anno);
@@ -48,13 +58,13 @@ function Genera_Calendario()
 		
 		<section class="calendario__giorni">
 			<section class="calendario__top-bar">
-				<a class="top-bar__giorni">Lun</a>
-				<a class="top-bar__giorni">Mar</a>
-				<a class="top-bar__giorni">Mer</a>
-				<a class="top-bar__giorni">Gio</a>
-				<a class="top-bar__giorni">Ven</a>
-				<a class="top-bar__giorni">Sab</a>
-				<a class="top-bar__giorni">Dom</a>
+				<a class="top-bar__giorni">LUN</a>
+				<a class="top-bar__giorni">MAR</a>
+				<a class="top-bar__giorni">MER</a>
+				<a class="top-bar__giorni">GIO</a>
+				<a class="top-bar__giorni">VEN</a>
+				<a class="top-bar__giorni">SAB</a>
+				<a class="top-bar__giorni">DOM</a>
 			</section>
 			
                 <?php
@@ -76,20 +86,12 @@ function Genera_Calendario()
                                 echo '
                                     <div class="calendario__giorno oggi">
                                         <a class="calendario__data">'.$cont_giorni.'</a>
-                                        <a class="calendario__task calendario__task--oggi">'.$n_eventi.' Events</a>
                                     </div>';
-                            }elseif($n_eventi > 0){
-                                echo '
-                                    <div class="calendario__giorno event">
-                                        <a class="calendario__data">'.$cont_giorni.'</a>
-                                        <a class="calendario__task">'.$n_eventi.' Eventi</a>
-                                    </div>
-                                ';
+                            
                             }else{
                                 echo '
                                     <div class="calendario__giorno no-event">
                                         <a class="calendario__data">'.$cont_giorni.'</a>
-                                        <a class="calendario__task">'.$n_eventi.' Eventi</a>
                                     </div>
                                 ';
                             }
@@ -97,10 +99,10 @@ function Genera_Calendario()
                         }else{
                             if($c < $pr_giornomese){
                                 $giorni_altromese = ((($tot_giornimese-$pr_giornomese)+1)+$c);
-                                $giorni = 'precedenti';
+                                $giorni = 'prima';
                             }else{
                                 $giorni_altromese = ($c-$tot_giornimese_display);
-                                $giorni = 'successivi';
+                                $giorni = 'dopo';
                             }
                             echo '
                                 <div class="calendario__giorno inattivo">
@@ -115,6 +117,29 @@ function Genera_Calendario()
             ?>
         </section>
     </main>
+    
+    <script>
+        function Genera_Calendario(target_div,anno, mese){
+			$.ajax({
+				type:'POST',
+				url:'function.php',
+				data:'func=Genera_Calendario&anno='+anno+'&mese='+mese,
+				success:function(html){
+					$('#'+target_div).html(html);
+				}
+			});
+		}
+		
+		$(document).ready(function(){
+			$('.mese-dropdown').on('change',function(){
+				Genera_Calendario('calendar_div', $('.anno-dropdown').val(), $('.mese-dropdown').val());
+			});
+			$('.anno-dropdown').on('change',function(){
+				Genera_Calendario('calendar_div', $('.anno-dropdown').val(), $('.mese-dropdown').val());
+			});
+		});
+	</script>
+   
 <?php
 }
 function Lista_Mesi($select = '')
@@ -135,7 +160,7 @@ function Lista_Mesi($select = '')
             $select_op = 'selected';
         }else
         {
-            $seelct_op ='';
+            $select_op ='';
         }
         
         $op .='<option value="'.$val.'" '.$select_op.' >'.date("F",mktime(0,0,0,$i+1,0,0)).'</option>';
