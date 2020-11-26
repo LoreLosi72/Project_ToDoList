@@ -2,8 +2,8 @@
 $host = 'localhost';
 $user = 'calendario';
 $password = '';
-$nomedb = 'calendario';
-$connection = mysqli_connect($host,$user,$password,$nomedb);
+$nome = 'calendario';
+$connection = mysqli_connect($host,$user,$password,$nome);
 
 /*$file = fopen('Appuntamenti.csv','r');
 while(($dati = fgetcsv($file,100,","))!== FALSE)
@@ -13,4 +13,3 @@ while(($dati = fgetcsv($file,100,","))!== FALSE)
 }
 fclose($file);
 */
-?>
