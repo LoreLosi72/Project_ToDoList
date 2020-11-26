@@ -39,23 +39,16 @@ function Genera_Calendario($anno='',$mese='')
     $mese_prima = date("m",strtotime('-1 mese', strtotime($data_calendario)));
     $anno_prima = date("Y",strtotime('-1 mese', strtotime($data_calendario)));
     $tot_giornimese_prima = cal_days_in_month(CAL_GREGORIAN, $mese_prima,$anno_prima);
-?>
 
+?>
+<div class="titolo">
+    <h1><span>CALENDARIO</span></h1>
+</div>
+<div class="titolo-bar">
+    <select class="mese-dropdown"><?php echo Lista_Mesi($data_mese); ?></select>
+    <select class="anno-dropdown"><?php echo Lista_Anni($data_anno); ?></select>
+</div>
 <main class="calendario">
-		<section class="titolo-bar">
-			<div class="titolo-bar__mese">
-				<select class="mese-dropdown">
-					<?php echo Lista_Mesi($data_mese); ?>
-				</select>
-			</div>
-			<div class="titolo-bar__anno">
-				<select class="anno-dropdown">
-					<?php echo Lista_Anni($data_anno); ?>
-				</select>
-			</div>
-		</section>
-		
-		
 		<section class="calendario__giorni">
 			<section class="calendario__top-bar">
 				<a class="top-bar__giorni">LUN</a>
@@ -66,8 +59,7 @@ function Genera_Calendario($anno='',$mese='')
 				<a class="top-bar__giorni">SAB</a>
 				<a class="top-bar__giorni">DOM</a>
 			</section>
-			
-                <?php
+		    <?php
                     $cont_giorni = 1;
                     $n_eventi = 0;
 
@@ -83,9 +75,11 @@ function Genera_Calendario($anno='',$mese='')
                             $n_eventi = $query->num_rows;
 
                             if(strtotime($data_corrente) == strtotime(date("Y-m-d"))){
+                                $oggi = 'oggi';
                                 echo '
                                     <div class="calendario__giorno oggi">
                                         <a class="calendario__data">'.$cont_giorni.'</a>
+                                        <a class="calendario__task">'.$oggi.'</a>
                                     </div>';
                             
                             }else{
@@ -99,10 +93,10 @@ function Genera_Calendario($anno='',$mese='')
                         }else{
                             if($c < $pr_giornomese){
                                 $giorni_altromese = ((($tot_giornimese-$pr_giornomese)+1)+$c);
-                                $giorni = 'prima';
+                                $giorni = 'Prima';
                             }else{
                                 $giorni_altromese = ($c-$tot_giornimese_display);
-                                $giorni = 'dopo';
+                                $giorni = 'Dopo';
                             }
                             echo '
                                 <div class="calendario__giorno inattivo">
@@ -117,7 +111,16 @@ function Genera_Calendario($anno='',$mese='')
             ?>
         </section>
     </main>
-    
+<div id="buttons">
+    <form action="indexlog.php">
+		<button type= "submit">LOGIN</button>
+	</form>
+	<form action="indexreg.php">
+		<button type= "submit">REGISTRAZIONE</button>
+    </form>
+</div>
+
+	
     <script>
         function Genera_Calendario(target_div,anno, mese){
 			$.ajax({
@@ -199,7 +202,5 @@ function Lista_Anni($select = '')
     return $op;
 }
 
+?>
 
-
-
-    
