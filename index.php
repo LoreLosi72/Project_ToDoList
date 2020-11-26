@@ -9,6 +9,7 @@ include_once 'function.php';
 <title>CALENDARIO</title>
 <meta charset="utf-8">
 <link rel ="stylesheet" href="style.css">
+<link rel ="stylesheet" href="stylebottoni.css">
 <script src="jquery.min.js"></script>
 </head>
 
