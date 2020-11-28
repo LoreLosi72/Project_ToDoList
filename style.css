@@ -10,7 +10,7 @@ html {
 body {
     height: 100%;
     padding: 2rem;
-    background-color: rgb(87, 160, 255);
+    background-color: rgb(255, 255, 255);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-family: 'Montserrat', sans-serif;

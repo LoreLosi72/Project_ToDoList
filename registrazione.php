@@ -28,7 +28,6 @@ if(isset($_POST['register']))
         $msg ='LA PASSWORD INSERITA DEVE AVERE ALMENO 8 CARATTERI CON UN MASSIMO DI 20';
     }else
     {
-        $password_hash=password_hash($password,PASSWORD_BCRYPT);
         $n_user=0;
         global $connection;
         $query = $connection->query("SELECT username FROM utenti WHERE username = '".$username."'");
@@ -40,7 +39,7 @@ if(isset($_POST['register']))
         }else
         {
             global $connection;
-            $connection->query("INSERT INTO utenti(id_utenti,username,password) VALUES(NULL,'$username','$password_hash')");
+            $connection->query("INSERT INTO utenti(id_utenti,username,password) VALUES(NULL,'$username','$password')");
             $msg='registrazione effettuata con successo';
         }
     }
@@ -54,7 +53,7 @@ if(isset($_POST['register']))
         <link rel="stylesheet"href="styleerrore.css">
     </head>
     <body>
-        <h1>DETTAGLI DELL'ERRORE DI REGISTRAZIONE<h1>
+        <h1>STATO DI REGISTRAZIONE<h1>
         <div id="main">
             <div id="errori">
                 <a><?php echo $msg ?><a>
@@ -63,8 +62,8 @@ if(isset($_POST['register']))
                 <form action="index.php">
                     <button type="submit" name="indietro">RITORNA ALLA HOME PAGE</button>
                 </form>
-                <form action="indexreg.php">
-                    <button type="submit" name="indietro">RITORNA ALLA PAGINA DI LOGIN</button>
+                <form action="indexlog.php">
+                    <button type="submit" name="indietro">VAI ALLA PAGINA DI LOGIN</button>
                 </form>
             </div>
         </div>

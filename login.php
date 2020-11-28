@@ -18,7 +18,7 @@ if(isset($_POST['login']))
         {
             $n_user=0;
             global $connection;
-            $query = $connection->query("SELECT username FROM utenti WHERE username = '".$username."'");
+            $query = $connection->query("SELECT username,password FROM utenti WHERE username = '".$username."'AND password='".$password."'");
             $n_user = $query->num_rows;
             if($n_user==0)
             {
@@ -26,7 +26,7 @@ if(isset($_POST['login']))
             }else
             {
                $_SESSION['username'] = $username;
-               header("location:index.php");
+               header("location:indexprivata.php");
             }
         }
     }

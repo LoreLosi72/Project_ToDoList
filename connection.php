@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$user = 'calendario';
+$user = 'calendar';
 $password = '';
-$nome = 'calendario';
+$nome = 'calendar';
 $connection = mysqli_connect($host,$user,$password,$nome);
 
 /*$file = fopen('Appuntamenti.csv','r');
