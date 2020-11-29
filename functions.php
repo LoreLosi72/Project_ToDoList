@@ -129,6 +129,14 @@ function Genera_Calendario($anno = '', $mese = ''){
 			?>
 		</section>
 	</main>
+<div id="buttons">
+    <form action="indexinsert.php">
+		<button type= "submit">INSERISCI EVENTO</button>
+	</form>
+	<form action="logout.php">
+		<button type= "submit">LOGOUT</button>
+    </form>
+</div>
 
 	<script>
 		function Genera_Calendario(target_div, anno, mese){
@@ -244,3 +252,6 @@ function Genera_Eventi($date = ''){
 	}
 	echo $lista_eventi;
 }
+
+
+

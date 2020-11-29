@@ -1,5 +1,5 @@
 * {
-    outline: none;
+    outline: 0;
     box-sizing: border-box;
 }
 
@@ -10,12 +10,11 @@ html {
 body {
     height: 100%;
     padding: 2rem;
-    background-color: #ffffff;
+    background-color: #35b5ff;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    background-image: linear-gradient(45deg, #1486c9 0%, #35b5ff 100%);
 }
 
 @media screen and (min-width: 55em) {
@@ -356,4 +355,34 @@ li {
 
 .calendar__task.calendar__task--today {
     color: #2d9cf7;
+}
+
+#buttons {
+    text-align: center;
+}
+
+button {
+    color: black;
+    cursor: pointer;
+    border: none;
+    margin-top: 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    padding: 20px 30px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-image: linear-gradient(to right, #7ad5ff 0%, #2d9cf7 51%, #a4deff 100%);
+    background-size: 200% auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    transition: .5s;
+    font-weight: bold;
+}
+
+button:hover {
+    background-position: right center;
 }
