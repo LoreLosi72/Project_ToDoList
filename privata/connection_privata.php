@@ -1,5 +1,5 @@
 <?php
-
+/*CREDENZIALI DEL DATABASE, DOVRANNO ESSERE MODIFICATE QUANDO SI UTILIZZERA UN'ALTRA MACCHINA*/
 $host     = 'localhost';
 $username ='calendar';
 $password = '';
