@@ -41,6 +41,10 @@ function Genera_Calendario($anno='',$mese='')
     $tot_giornimese_prima = cal_days_in_month(CAL_GREGORIAN, $mese_prima,$anno_prima);
 
 ?>
+<ul>
+    <li><a class="active" href = "../registrazione/indexreg.php">REGISTRAZIONE</a></li>
+    <li><a href = "../login/indexlog.php">LOGIN</a></li>
+</ul>
 <div class="titolo">
     <h1><span>CALENDARIO</span></h1>
 </div>
@@ -51,13 +55,13 @@ function Genera_Calendario($anno='',$mese='')
 <main class="calendario">
 		<section class="calendario__giorni">
 			<section class="calendario__top-bar">
-				<a class="top-bar__giorni">LUN</a>
-				<a class="top-bar__giorni">MAR</a>
-				<a class="top-bar__giorni">MER</a>
-				<a class="top-bar__giorni">GIO</a>
-				<a class="top-bar__giorni">VEN</a>
-				<a class="top-bar__giorni">SAB</a>
-				<a class="top-bar__giorni">DOM</a>
+				<b class="top-bar__giorni">LUN</b>
+				<b class="top-bar__giorni">MAR</b>
+				<b class="top-bar__giorni">MER</b>
+				<b class="top-bar__giorni">GIO</b>
+				<b class="top-bar__giorni">VEN</b>
+				<b class="top-bar__giorni">SAB</b>
+				<b class="top-bar__giorni">DOM</b>
 			</section>
 		    <?php
                     $cont_giorni = 1;
@@ -78,14 +82,14 @@ function Genera_Calendario($anno='',$mese='')
                                 $oggi = 'oggi';
                                 echo '
                                     <div class="calendario__giorno oggi">
-                                        <a class="calendario__data">'.$cont_giorni.'</a>
-                                        <a class="calendario__task">'.$oggi.'</a>
+                                        <b class="calendario__data">'.$cont_giorni.'</b>
+                                        <b class="calendario__task">'.$oggi.'</b>
                                     </div>';
                             
                             }else{
                                 echo '
                                     <div class="calendario__giorno no-event">
-                                        <a class="calendario__data">'.$cont_giorni.'</a>
+                                        <b class="calendario__data">'.$cont_giorni.'</b>
                                     </div>
                                 ';
                             }
@@ -100,8 +104,8 @@ function Genera_Calendario($anno='',$mese='')
                             }
                             echo '
                                 <div class="calendario__giorno inattivo">
-                                    <a class="calendario__data">'.$giorni_altromese.'</a>
-                                    <a class="calendario__task">'.$giorni.'</a>
+                                    <b class="calendario__data">'.$giorni_altromese.'</b>
+                                    <b class="calendario__task">'.$giorni.'</b>
                                 </div>
                             ';
                         }
@@ -111,16 +115,6 @@ function Genera_Calendario($anno='',$mese='')
             ?>
         </section>
     </main>
-<div id="buttons">
-    <form action="indexlog.php">
-		<button type= "submit">LOGIN</button>
-	</form>
-	<form action="indexreg.php">
-		<button type= "submit">REGISTRAZIONE</button>
-    </form>
-</div>
-
-	
     <script>
         function Genera_Calendario(target_div,anno, mese){
 			$.ajax({

@@ -35,6 +35,7 @@ function Genera_Calendario($anno = '', $mese = ''){
 	$anno_prima = date("Y", strtotime('-1 month', strtotime($data_calendario)));
 	$tot_giornimese_prima = cal_days_in_month(CAL_GREGORIAN, $mese_prima, $anno_prima);
 ?>
+
 <div class="titolo">
 	<h1><span>AGENDA</span></h1>
 </div>
@@ -129,18 +130,17 @@ function Genera_Calendario($anno = '', $mese = ''){
 			?>
 		</section>
 	</main>
-<div id="buttons">
-    <form action="indexinsert.php">
-		<button type= "submit">INSERISCI EVENTO</button>
+<div align="center">
+	<form action="indexinsert.php">
+        <button type="submit" name="button">INSERISCI EVENTO</button>
 	</form>
 	<form action="indexdelete.php">
-		<button type= "submit">ELIMINA EVENTO</button>
+        <button type="submit" name="button">ELIMINA EVENTO</button>
 	</form>
-	<form action="logout.php">
-		<button type= "submit">LOGOUT</button>
-    </form>
+	<form action="../login/logout.php">
+        <button type="submit" name="button">LOGOUT</button>
+	</form>
 </div>
-
 	<script>
 		function Genera_Calendario(target_div, anno, mese){
 			$.ajax({

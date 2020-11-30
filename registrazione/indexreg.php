@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REGISTRAZIONE</title>
-    <link rel="stylesheet" href="stylelog.css">
+    <link rel="stylesheet" href="../login/stylelog.css">
 </head>
 <body>
     <form method="post" action="registrazione.php">

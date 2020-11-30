@@ -8,7 +8,7 @@
 </head>
 <body>
 <form method="post" action="delete.php">
-        <h1>INSERIMENTO EVENTI</h1>
+        <h1>ELIMINAZIONE EVENTI</h1>
         <input type="text" id="nome" placeholder="Nome" name="Nome" maxlength="255" required>
         <input type="date"  name="Data_impegno" required>
         <div id="buttoncontainer">

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('connection.php');
+require_once('../pubblica/connection.php');
 $username="";
 $password="";
 $msg="";
@@ -25,7 +25,7 @@ if(isset($_POST['login']))
                 if(password_verify($password,$dati_utente['password']))
                 {
                     $_SESSION['username'] = $username;
-                    header("location:indexprivata.php");
+                    header("location:../privata/indexprivata.php");
                 }else 
                 {
                     $msg="UTENTE O PASSWORD ERRATI";
@@ -42,7 +42,7 @@ if(isset($_POST['login']))
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ERRORI</title>
-        <link rel="stylesheet"href="styleerrore.css">
+        <link rel="stylesheet"href="../registrazione/styleerrore.css">
     </head>
     <body>
         <h1>DETTAGLI DELL'ERRORE DI ACCESSO<h1>
@@ -51,7 +51,7 @@ if(isset($_POST['login']))
                 <a><?php echo $msg ?><a>
             </div>
             <div id="buttoncontainer">
-                <form action="index.php">
+                <form action="../pubblica/index.php">
                     <button type="submit" name="indietro">RITORNA ALLA HOME PAGE</button>
                 </form>
                 <form action="indexlog.php">

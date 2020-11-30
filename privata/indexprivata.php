@@ -8,7 +8,7 @@ include_once 'functions.php';
 <title>AGENDA</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="stylepr.css">
-<script src="js/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
 </head>
 <body>
 	<div id="calendar_div">

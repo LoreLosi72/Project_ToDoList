@@ -10,7 +10,7 @@ if(isset($_POST['delete']))
 {
     if(!isset($_SESSION['username']))
     {
-        header('Location:indexlog.php');
+        header('Location:../login/indexlog.php');
     }else{
         $username=$_SESSION['username'];
     }
@@ -49,7 +49,7 @@ if(isset($_POST['delete']))
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>STATO DELL'ELIMINAZIONE</title>
-        <link rel="stylesheet" href="styleerrore.css">
+        <link rel="stylesheet" href="../styleerrore.css">
     </head>
     <body>
         <h1>DETTAGLI DELLO STATO DI ELIMINAZIONE<h1>
@@ -58,10 +58,10 @@ if(isset($_POST['delete']))
                     <a><?php echo $msg ?></a>
                 </div>
                 <div id="buttoncontainer">
-                    <form action="indexprivata.php">
+                    <form action="../privata/indexprivata.php">
                         <button type="submit" name="indietro">RITORNA ALL'AGENDA</button>
                     </form>
-                    <form action="indexinse.php">
+                    <form action="indexdelete.php">
                         <button type="submit" name="indietro">RITORNA ALLA PAGINA DI ELIMINAZIONE</button>
                     </form>
                 </div>

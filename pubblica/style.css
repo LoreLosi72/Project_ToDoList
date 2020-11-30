@@ -25,6 +25,38 @@ body {
     }
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-image: linear-gradient(to right, #7ad5ff 0%, #2d9cf7 51%, #a4deff 100%);
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    padding: 2px 20px;
+    margin: 0px 20px;
+    border-radius: 10px;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .5s;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+li a:hover {
+    background-color: #2d9cf7
+}
+
 .titolo h1 {
     text-align: center;
     font-family: 'Montserrat', sans-serif;
@@ -38,10 +70,10 @@ body {
     outline: none;
     display: inline-block;
     padding: 10px 50px;
-    margin: 10px 20px;
+    margin: 10px 10px;
 }
 
-a {
+b {
     color: black;
     font-weight: 100;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -203,34 +235,4 @@ a {
 
 .calendario__task.calendario__task--oggi {
     color: #2d9cf7;
-}
-
-#buttons {
-    text-align: center;
-}
-
-button {
-    color: black;
-    cursor: pointer;
-    border: none;
-    margin-top: 30px;
-    text-transform: uppercase;
-    text-decoration: none;
-    outline: none;
-    display: inline-block;
-    padding: 20px 30px;
-    margin: 10px 20px;
-    border-radius: 10px;
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background-image: linear-gradient(to right, #7ad5ff 0%, #2d9cf7 51%, #a4deff 100%);
-    background-size: 200% auto;
-    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
-    transition: .5s;
-    font-weight: bold;
-}
-
-button:hover {
-    background-position: right center;
 }

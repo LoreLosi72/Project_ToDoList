@@ -1,5 +1,5 @@
 <?php
-require_once('connection.php');
+require_once('../pubblica/connection.php');
 $username="";
 $password="";
 $msg="";
@@ -61,13 +61,13 @@ if(isset($_POST['register']))
                 <a><?php echo $msg ?><a>
             </div>
             <div id="buttoncontainer">
-                <form action="index.php">
+                <form action="../pubblica/index.php">
                     <button type="submit" name="indietro">RITORNA ALLA HOME PAGE</button>
                 </form>
-                <form action="indexlog.php">
+                <form action="../login/indexlog.php">
                     <button type="submit" name="indietro">VAI ALLA PAGINA DI LOGIN</button>
                 </form>
-                <form action="indexreg.php">
+                <form action="../registrazione/indexreg.php">
                     <button type="submit" name="indietro">RITORNA ALLA PAGINA DI REGISTRAZIONE</button>
                 </form>
             </div>

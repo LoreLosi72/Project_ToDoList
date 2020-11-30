@@ -357,7 +357,7 @@ li {
     color: #2d9cf7;
 }
 
-#buttons {
+#buttoncontainer {
     text-align: center;
 }
 
@@ -365,7 +365,7 @@ button {
     color: black;
     cursor: pointer;
     border: none;
-    margin-top: 30px;
+    margin-top: 10px;
     text-transform: uppercase;
     text-decoration: none;
     outline: none;
@@ -381,6 +381,7 @@ button {
     box-shadow: 0 0 20px rgba(0, 0, 0, .1);
     transition: .5s;
     font-weight: bold;
+    text-align: center;
 }
 
 button:hover {
