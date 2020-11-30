@@ -28,6 +28,7 @@ if(isset($_POST['register']))
         $msg ='LA PASSWORD INSERITA DEVE AVERE ALMENO 8 CARATTERI CON UN MASSIMO DI 20';
     }else
     {
+        
         $n_user=0;
         global $connection;
         $query = $connection->query("SELECT username FROM utenti WHERE username = '".$username."'");
@@ -38,8 +39,9 @@ if(isset($_POST['register']))
             $msg='USERNAME IN USO';
         }else
         {
+            $password_hash=password_hash($password,PASSWORD_BCRYPT);
             global $connection;
-            $connection->query("INSERT INTO utenti(id_utenti,username,password) VALUES(NULL,'$username','$password')");
+            $connection->query("INSERT INTO utenti(id_utenti,username,password) VALUES(NULL,'$username','$password_hash')");
             $msg='registrazione effettuata con successo';
         }
     }
@@ -64,6 +66,9 @@ if(isset($_POST['register']))
                 </form>
                 <form action="indexlog.php">
                     <button type="submit" name="indietro">VAI ALLA PAGINA DI LOGIN</button>
+                </form>
+                <form action="indexreg.php">
+                    <button type="submit" name="indietro">RITORNA ALLA PAGINA DI REGISTRAZIONE</button>
                 </form>
             </div>
         </div>

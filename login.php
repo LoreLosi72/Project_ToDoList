@@ -18,15 +18,20 @@ if(isset($_POST['login']))
         {
             $n_user=0;
             global $connection;
-            $query = $connection->query("SELECT username,password FROM utenti WHERE username = '".$username."'AND password='".$password."'");
+            $query = $connection->query("SELECT * FROM utenti WHERE username = '".$username."'");
             $n_user = $query->num_rows;
-            if($n_user==0)
-            {
-                $msg='CREDENZIALI UTENTE ERRATE';
-            }else
-            {
-               $_SESSION['username'] = $username;
-               header("location:indexprivata.php");
+            if($n_user>0){
+                $dati_utente = $query->fetch_array();
+                if(password_verify($password,$dati_utente['password']))
+                {
+                    $_SESSION['username'] = $username;
+                    header("location:indexprivata.php");
+                }else 
+                {
+                    $msg="UTENTE O PASSWORD ERRATI";
+                }
+            }else{
+                $msg="L'UTENTE NON RISULTA REGISTRATO";
             }
         }
     }

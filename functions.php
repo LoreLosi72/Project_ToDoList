@@ -133,6 +133,9 @@ function Genera_Calendario($anno = '', $mese = ''){
     <form action="indexinsert.php">
 		<button type= "submit">INSERISCI EVENTO</button>
 	</form>
+	<form action="indexdelete.php">
+		<button type= "submit">ELIMINA EVENTO</button>
+	</form>
 	<form action="logout.php">
 		<button type= "submit">LOGOUT</button>
     </form>
