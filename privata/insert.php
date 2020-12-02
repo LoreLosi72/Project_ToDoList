@@ -43,7 +43,7 @@ if(isset($_POST['insert']))
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>STATO DELL'INSERIMENTO</title>
-        <link rel="stylesheet" href="../styleerrore.css">
+        <link rel="stylesheet" href="../registrazione/styleerrore.css">
     </head>
     <body>
         <h1>DETTAGLI DELLO STATO DI INSERIMENTO<h1>
